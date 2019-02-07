@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <br>
+      <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
+      <br>
+      <h3>App Status: {{ appStatus | async }}</h3>
+      <br>
+      <input type="text" [(ngModel)]="filterStatus" style="margin-bottom: 10px">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let server of servers | filter: filterStatus: 'status'"
+          [ngClass]="getStatusClasses(server)">
+          <span *ngIf="server.status=='stable'" class="glyphicon glyphicon-ok" style="margin-right: 10px"></span>
+          <span *ngIf="server.status=='offline'" class="glyphicon glyphicon-exclamation-sign" style=" margin-right: 10px"></span>
+          <span
+            class="badge">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shorten: 15 }}</strong> | {{ server.instanceType | uppercase }} | {{ server.started | date:'mediumDate' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

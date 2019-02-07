@@ -1,0 +1,58 @@
+<div class="container">
+  <h3>Signup Form</h3>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- <form (ngSubmit)="onSubmit(f)" #f="ngForm"> -->
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" class="form-control" ngModel name="username" minlength="6" required #username="ngModel">
+            <span class="help-block" *ngIf="username.invalid && username.touched">Please enter a valid user name!</span>
+          </div>
+          <button class="btn btn-default" type="button" (click)="suggestUserName()">Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+            <span class="help-block" *ngIf="email.invalid && email.touched">Please enter a valid email!</span>
+          </div>
+        </div>
+        <h4 *ngIf="userData.invalid && userData.touched">User data is invalid!</h4>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select id="secret" class="form-control" [ngModel]="''" name="secret" required #secret="ngModel">
+            <option value='' default></option>
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+          <span class="help-block" *ngIf="secret.value=='' && secret.touched">Please select a valid secret!</span>
+        </div>
+        <div class="form-group">
+          <label for="answer">Answer to secret question</label>
+          <input type="text" id="answer" class="form-control" ngModel name="answer" required #answer="ngModel">
+          <span class="help-block" *ngIf="answer.invalid && answer.touched">Please enter the answer to your secret
+            question!</span>
+        </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" name="gender" ngModel [value]="gender" required>{{ gender}}
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Your Data</h3>
+      <ul>
+        <li>User Name: {{user.username }}</li>
+        <li>eMail: {{user.email }}</li>
+        <li>Secret Question: {{user.secretQuestion }}</li>
+        <li>Answer to Secret: {{ user.answer }}</li>
+        <li>Gender: {{ user.gender }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

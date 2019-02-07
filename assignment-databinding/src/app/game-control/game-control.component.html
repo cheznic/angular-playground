@@ -1,0 +1,20 @@
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" [disabled]=!canStart (click)=onStartClick()>Start</button>
+      <button class="btn btn-primary" [disabled]=canStart (click)=onStopClick()>Stop</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p *ngFor="let oe of oddAndEvenNumbers">
+        <app-even *ngIf="oe%2 === 0" [oddEven]=oe></app-even>
+        <app-odd *ngIf="oe%2 === 1" [oddEven]=oe></app-odd>
+      </p>
+    </div>
+  </div>
+</div>
