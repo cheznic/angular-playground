@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+import credentials from '../assets/firebase-credentials';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const config = {
+      apiKey: credentials.apiKey,
+      authDomain: credentials.authDomain
     };
     firebase.initializeApp(config);
   }

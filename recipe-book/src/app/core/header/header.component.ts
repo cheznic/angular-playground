@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { AuthService } from '../../auth/auth.service';
 
@@ -15,14 +14,14 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService
   ) { }
 
-  getAuthService(): AuthService {
-    return this.authService;
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 
   ngOnInit() { }
 
   onSaveData() {
-    this.dataStorageService.storeRecipes()
+    this.dataStorageService.storeRecipes();
   }
 
   onFetchData() {
