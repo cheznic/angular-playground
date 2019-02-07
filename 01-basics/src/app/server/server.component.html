@@ -1,0 +1,11 @@
+<div class="row" [ngStyle]="{backgroundColor: getColor()}" [ngClass]="{online:serverStatus ==='online', offline:serverStatus==='offline'}">
+   <div class="col-md-3">
+      {{serverName}}
+   </div>
+   <div class="col-md-3">
+      {{serverId}}
+   </div>
+   <div class="col-md-3">
+      {{serverStatus}}
+   </div>
+</div>

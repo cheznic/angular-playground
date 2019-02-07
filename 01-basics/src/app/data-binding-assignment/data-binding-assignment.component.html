@@ -1,0 +1,3 @@
+<input type="text" class="form-control" [(ngModel)]="userName" (input)="onUpdateUserName($event)">
+<p>this paragraph contains a reference to {{userName}}.</p>
+<button class="btn btn-primary" [disabled]=!allowResetName (click)="onResetName()">Reset Name</button>

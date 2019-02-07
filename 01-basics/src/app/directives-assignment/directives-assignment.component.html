@@ -1,0 +1,12 @@
+<button class="btn btn-primary" (click)="onDisplayDetails()">Display Details</button>
+<p [hidden]=hideParagraph>
+  This paragraph can be hidden and displayed again.
+</p>
+
+<div class="container">
+  <div class="row" *ngFor="let c of clicks">
+    <div class="col-md-4">
+      <h4 [ngClass]="{fancy:c.key >= 4, boring:c.key <= 3}">{{c.value.toISOString()}}</h4>
+    </div>
+  </div>
+</div>
