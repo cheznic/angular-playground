@@ -4,25 +4,20 @@ import { map } from 'rxjs/operators';
 
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
-import { AuthService } from '../auth/auth.service';
-import credentials from '../../assets/firebase-credentials';
 
 @Injectable()
 export class DataStorageService {
-   private node = '/recipes.json';
+   private recipesUri = '/recipes.json';
 
    constructor(
       private http: HttpClient,
-      private recipeService: RecipeService,
-      private authService: AuthService
+      private recipeService: RecipeService
    ) { }
 
    storeRecipes() {
-      const token = this.authService.getToken();
-      const httpParams = new HttpParams().append('auth', token);
       this.http.put(
-         credentials.databaseURL + this.node,
-         this.recipeService.getRecipes(), { 'params': httpParams }
+         this.recipesUri,
+         this.recipeService.getRecipes()
       ).subscribe(
          (response: Response) => {
             // TODO: if error...
@@ -32,10 +27,10 @@ export class DataStorageService {
    }
 
    getRecipes() {
-      const token = this.authService.getToken();
-      const httpParams = new HttpParams().append('auth', token);
-      this.http.get<Recipe[]>(credentials.databaseURL + this.node, { params: httpParams })
-         .pipe(map(
+      this.http.get<Recipe[]>(
+         this.recipesUri
+      ).pipe(
+         map(
             (recipes) => {
                for (const recipe of recipes) {
                   if (!recipe['ingredients']) {
@@ -44,11 +39,11 @@ export class DataStorageService {
                }
                return recipes;
             }
-         ))
-         .subscribe(
-            (recipes: Recipe[]) => {
-               this.recipeService.saveRecipes(recipes);
-            }
-         );
+         )
+      ).subscribe(
+         (recipes: Recipe[]) => {
+            this.recipeService.saveRecipes(recipes);
+         }
+      );
    }
 }
