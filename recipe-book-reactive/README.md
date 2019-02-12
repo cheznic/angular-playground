@@ -16,3 +16,6 @@ Root (Component)
 
 ## Modified to use NgRx
 - `npm install --save @ngrx/store`
+
+## To compile for poduction
+- `ng build --prod --aot`
